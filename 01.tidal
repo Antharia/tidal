@@ -1,0 +1,40 @@
+d1 $ stack [
+s "bd*2 [bd:1 bd:2*2]",
+every 8 (fast 2) $ s "hh*8" # n "1 2 3 4" # gain 0.6,
+slow 8 $ s "tone*4" # n "6 6 6 7" # gain 0.9
+]
+
+hush
+
+d1 $ stack [
+s "pr(5, 16)" # n (run 3) # gain 0.7,
+s "hh(8, 16)" # n "5 6 7" # gain 0.6,
+n "3" # s "vox"
+]
+
+d2 $ stack [
+s "kick kick" # n "7",
+s "~ snare"
+]
+
+d2 silence
+
+d3 $ stack [
+s "bass:9" # gain 0.0 # speed (1.5),
+slow 2 $ s "melo [melo melo [melo melo]]" # n "9" # gain 0.8 # pan sine
+]
+
+hush
+
+d1 $  s "tone"
+
+d1 $ stack [
+gap 16 $ sound "hit1(7, 8)" # n (run 9) # crush "4 2 5",
+s "kick:4*2",
+s "~ snare:8",
+s "hh*4" # n " 2 4 6 8" # gain 0.8 # pan sine
+]
+
+d2 $ stack [
+slow 4 $ striate 64 $ s "tone:6*2 tone:7"
+]
