@@ -1,0 +1,184 @@
+-- live coding
+-- -- algorave
+-- -- toplap
+-- TidalCyles
+-- -- Pattern driven
+-- -- Sample based
+-- Haskell
+-- SuperDirt
+-- -- SuperCollider
+-- editors
+-- opensource
+
+-- Evaluate a line : Shift + Enter
+
+-- -- -- --
+
+-- boom 
+d1 $ sound "bd"
+
+d1 $ sound "sd"
+
+
+-- stop
+d1 $ silence
+
+
+-- cycle
+d1 $ sound "bd"
+
+d1 $ sound "bd sd" 
+
+d1 $ sound "bd bd sd"
+
+d1 $ sound "bd ch oh bd sd ch ch bd ch bd ch ch sd oh ch ch"
+
+
+-- tempo
+setcps 1
+
+setcps 0.6
+
+setcps (90/60)
+
+setcps(90/60/4)
+
+setcps(126/60/4)
+
+
+-- tracks
+setcps 1
+d1 $ s "bd sd"
+
+d2 $ s "ch ch ch ch"
+
+p "crash" $ s "cr"
+
+p "crash" $ silence
+
+-- shut up
+hush
+
+
+-- patterns
+setcps 1
+d3 $ s "rc"
+
+d1 $ s "bd"
+
+d1 $ s "bd bd"
+
+d1 $ s "bd sd"
+
+d1 $ s "bd bd sd"
+
+hush
+
+d2 $ s "rc"
+
+d1 $ s "[bd bd] sd"
+
+d1 $ 
+
+d1 $ s "[ch ch] [sd ch oh ch]"
+d2 $ s "bd [cp bd]"
+
+hush
+
+d1 $ "[bd bd] [sd ch ch oh]"
+
+d1 $ "bd bd . sd ch ch oh"
+
+d1 $ s "bd ch oh . sd oh bd ch"
+
+
+-- summary
+setcps (126/60/4)
+d1 $ s "oh ch . ch ch ch oh . ch . ch oh"
+d2 $ s "bd . sd bd . rc sd bd sd . rc bd "
+d3 $ s "cr"
+
+hush
+
+
+
+
+-- nesting
+setcps (126/60/4)
+d1 $ s "[bd bd] sd"
+
+d1 $ s "[bd [bd bd]] sd"
+
+d1 $ s "[bd [ch ch]] [sd oh] [ch [bd oh]] sd"
+
+
+-- repetition
+setcps 1
+d1 $ s "bd bd"
+
+d1 $ s "bd*2"
+
+d2 $ s "ch ch ch ch ch ch ch ch"
+
+d2 $ s "ch*8"
+
+d1 $ s "[bd bd bd bd] sd"
+
+d1 $ s "bd*4 sd"
+d2 $ "[ch ch oh ch]*2"
+d3 $ s "cr/4"
+
+
+-- layering
+setcps 1
+d1 $ s "rc*2"
+d2 $ s "bd*2 sd"
+
+d1 $ 
+
+d1 $ s "[ch*8, rc*2 , bd*2 sd]"
+
+
+-- summary
+
+d1 $ s "[[ch ch oh ch]*2, rc*2, bd*2 sd]"
+
+
+
+
+
+
+-- silence
+setcps 1
+d1 $ s "rc"
+d2 $ s "~ cp"
+d3 $ s "bd ~ ~ bd"
+
+
+-- sample selection
+d1 $ s "bd"
+
+d1 $ s "bd:1"
+
+d1 $ s "bd:2 bd:3"
+d2 $ s "rc:3*6"
+
+
+-- stepper
+setcps 1
+d1 $ s "[bd:3]*2 sd:9"
+
+d1 $ s "[bd:3]*2 <sd:9 sd:3>" 
+
+d1 $ 
+
+d1 $ s "[<ld ld ld:3 ld:3> <ld:3 ld:4> ld, [ch oh ch]*2, ~ sd:5, bd:3*2]"
+
+
+-- summary
+setcps (170/60/4)
+d1 $ s "[[~ cp]*2, ch:1*16, bd sd:1 [~ bd] sd:2, <rc:4 rc:3 rc>*8]"
+
+----------------------------------------------------------------------------------
+
+

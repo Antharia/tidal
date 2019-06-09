@@ -1,0 +1,71 @@
+-- parallel
+setcps (126/60/4)
+d1 $ fast 4 $ s "ch ch*2"
+d2 $ fast 2 $ s "~ cp"
+d3 $ s "bd*4"
+
+d1 $ stack [
+    fast 4 $ s "ch ch*2",
+    fast 2 $ s "~ cp",
+    s "bd*4"
+]
+
+d1 $ stack [fast 4 $ s "ch ch*2", fast 2 $ s "~ cp", s "bd*4"]
+
+hush
+
+
+-- concatenate
+setcps (150/60/4)
+
+d1 $ cat [
+    n "0 6 4 2 3 0 2 5" # s "vox",
+    n "0 6 4 2 3 0 2 5" # s "rc"
+]
+
+hush
+
+
+-- compose
+d1 $ stack [
+    cat [
+        degradeBy 0.8 $ slow 2 $ n "0 6 4 2 3 0 2 5" # s "vox",
+        degrade $ n "0 6 4 2 3 0 2 5" # s "rc" # gain (range 0.2 0.9 $ rand) # room 1 # size 0.9 # orbit 1,
+        s "five:3/4"
+    ],
+    s "[bd ~ ~ bd ~ ~ ~ bd, [~ cp]*2]" # n 31 # gain 0.8,
+    s "mass:7" # lpf 800
+]
+
+
+-- shift
+-- juxtapose
+
+
+-- euclidean
+setcps 1
+d1 $ s "ch ~ ~ ch ~ ~ ch ~ "
+
+d1 $ s "ch(3,8)"
+
+d1 $ s "ch(1,4)"
+
+d1 $ s "ch(2,4)"
+
+d1 $ s "ch(3,4)"
+
+d1 $ s "ch(4,8)"
+
+d1 $ s "ch(5,8)"
+
+d1 $ slow 2 $ s "ch(11,30)"
+
+setcps 1.2
+
+d1 $ stack [
+    s "ch(5,8)" # n "1 2 3" # room 0.4 # size 0.5 # orbit 1,
+    s "bd:4(3,8)",
+    slow 2 $ s "sd(10,16)" # n (irand 10) # gain 0.7
+]
+
+

@@ -1,0 +1,154 @@
+-- effects
+setcps 1
+
+d1 $ s "[bd*2, [ch oh]*2, ~ cp]"
+
+d1 $ s "[bd*2, [ch oh]*2, ~ cp]" # gain 0.5
+
+d1 $ s "[bd*2, [ch oh]*2, ~ cp]" # gain "1 0.5 1 0.5"
+
+d1 $ s "[bd*2, [ch oh]*2, ~ cp]" # gain "1 0"
+
+d1 $ gain "1 0.8 0.5" # s "rc"
+
+d1 $ s "rc" # gain "1 0.8 0.5" -- correction
+
+d1 $ gain "1 0.8 0.5" # s "rc" # pan "0 1"
+
+d1 $ vowel "a e o" # s "ld"
+
+d1 $ speed "1 1.19 2" # s "ld"
+
+d1 $ s "cr" # speed "-1"
+
+
+-- select samples
+d1 $ s "ld"
+
+d1 $ s "ld:2"
+
+d1 $ s "ld" # n "2"
+
+d1 $ n "2" # s "ld"
+
+d1 $ n "0 0 2 0 0 3 0 4" # s "ld"
+
+hush
+
+
+-- functions
+-- -- slow/fast
+setcps 1
+d1 $ s "bd*2 [ch*2 oh] [sd [ch oh]] [bd ch oh sd]" # shape 0.3
+
+d1 $ slow 2 $ s "bd:2*2 [ch*2 oh] [sd:7 [ch oh]] [bd ch oh sd]" # shape 0.3
+
+d2 $ s "rc*4 rc*3 rc*2"
+d2 $ slow 4 $ s "rc*4 rc*3 rc*2" # n "0 2 6"
+
+d3 $ n "0 2" # s "ld"
+d3 $ fast 2 $ n "0 2" # s "ld"
+d3 $ fast 2 $ n "0 2 3 4" # s "ld"
+d3 $ fast 2 $ n "0 2 3 4" # s "ld" # speed 0.25
+d3 $ fast 2 $ n "0 2 3 4" # s "ld" # speed 0.25 # end 0.05
+d3 $ fast 2 $ n "2 3 4 0" # s "ld" # speed 0.5 # end 0.1
+d3 $ slow 2 $ s "ld" # speed 0.25
+d4 $ fast 1.5 $ n "0 3 2 4" # s "ld" # gain 0.9 # cutoff 200
+
+hush
+
+-- -- reverse
+d1 $ slow 2 $ n "0 2 0 0 3 0 4 5 6 0" # s "ld"
+
+d1 $ rev $ slow 2 $ n "0 2 0 0 3 0 4 5 6 0" # s "ld"
+
+hush
+
+-- -- every
+setcps 0.5
+d1 $ n "0 2 0 0 3 0 4 5 6 0" # s "ld"
+d1 $ rev $ n "0 2 0 0 3 0 4 5 6 0" # s "ld"
+
+d1 $ every 4 rev $ n "0 2 0 0 3 0 4 5 6 0" # s "ld"
+
+d1 $ s "[bd:2 sd:13, [ch:3*2 oh:2]*2, rc*4]"
+
+d1 $ every 2 (fast 2) $ s "[bd:2 sd:13, [ch:3*2 oh:2]*2, rc*4]"
+d2 $ every 3 rev $ n "0 0 2 0 0 3 0 4" # s "ld" 
+
+hush
+
+
+-- -- randomness
+setcps 0.5
+d1 $ rarely (# speed 2) $ n "8 1 1 8 1 1 8 1 9 1" # s "key"
+-- never, almostNever, rarely, sometimes, often, almostAlways, always
+d1 $ sometimesBy 0.18 (# speed 2) $ n "8 1 1 8 1 1 8 1 9 1" # s "key"
+
+d2 $ s "ch*10" # gain rand
+d2 $ s "ch*10" # n (irand 16)
+d2 $ s "ch*10" # gain rand # n (irand 16)
+
+hush
+
+setcps 1
+d1 $ s "ch*16"
+
+d1 $ degrade $ s "ch*16"
+
+d1 $ s "bd ch? oh? ch ? sd ch? ch? oh?"
+
+d1 $ degradeBy 0.8 $ s "ch*16"
+d1 $ degradeBy 0.2 $ s "ch*16"
+
+d1 $ often (# crush 3) $ s "bd*8" # gain rand # n (irand 50)
+d2 $ sometimes (# crush "2 1 4 8") $ degradeBy 0.3 $ s "[ch*16, cp*4]" # gain 0.7 # n (irand 60)
+
+hush
+
+-- continuous
+setcps 1
+d1 $ s "rc*8" # pan sine
+
+d1 $ s "rc*16" # gain tri
+
+d1 $ s "rc* 16" # gain (slow 2 sine)
+
+d1 $ s "rc* 16" # cutoff (slow 2 $ range 200 4000 sine)
+
+d1 $ s "ld*6" # n 5 # speed (slow 2 $ range 0 1.1 $ saw)
+-- sine, tri, square, saw, rand, irand
+
+hush
+
+
+-- summary
+
+d1 $ often (# crush 3) $ s "ch*8" # n (irand 50) # gain (range 0.2 0.9 $ rand)
+d2 $ degradeBy 0.4 $ whenmod 11 6 (slow 2) $ every 4 rev $ rarely (# speed 2) $ n "0 2 0 3 0 5 0 7" # s "key" # cutoff (slow 32 $ range 0 4000 sine)
+d3 $ slow 4 $ speed 0.25 # s "ld:2*4"
+d4 $ degradeBy 0.3 $ every 2 (fast 2) $ slow 2 $ s "[bd ~ ~ bd ~ ~ bd ~, ~ sd:1]"
+d5 $ degradeBy 0.2 $ almostAlways (# crush 2) $ "bd*4 sd*4" # n (irand 30) # gain (slow 4 $ range 0.1 0.7 sine)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
